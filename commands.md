@@ -22,7 +22,15 @@ cat cipher1.bin
 
 ### Step 4: Decrypt the ciphertext
 ```bash
-openssl enc -aes-128-ecb -d -in cipher1.bin -out output.txt -k mypassword
+touch plain.txt
+
+gedit plain.txt
+
+openssl enc -aes-128-ecb -e -in plain.txt -out cipher1.bin -k 00112233445566778899aabbccddeeff
+
+ghex cipher1.bin
+
+openssl enc -aes-128-ecb -d -in cipher1.bin -out output.txt -k 00112233445566778899aabbccddeeff
 ```
 
 ### Step 5: View decrypted text
@@ -48,6 +56,14 @@ openssl enc -aes-128-ecb -e -in pic_original.bmp -out pic_ecb.bmp -k 00112233445
 openssl enc -aes-128-cbc -e -in pic_original.bmp -out pic_cbc.bmp \
 -k 00112233445566778899aabbccddeeff \
 -iv 0102030405060708090a0b0c0d0e0f
+
+head -c 54 pic_original.bmp > header
+tail -c +55 pic_ecb.bmp > body_ecb
+cat header body_ecb > new_ecb.bmp
+eog new_ecb.bmp
+tail -c +55 pic_cbc.bmp > body_cbc
+cat header body_cbc > new_cbc.bmp
+eog new_cbc.bmp
 ```
 
 **Observation:** CBC mode removes visible patterns.
@@ -58,6 +74,9 @@ openssl enc -aes-128-cbc -e -in pic_original.bmp -out pic_cbc.bmp \
 
 ### Encrypt with padding
 ```bash
+echo "12345" > f1.txt
+echo "1234567890" > f2.txt
+echo "1234567890abcdef" > f3.txt
 openssl enc -aes-128-cbc -e -in f1.txt -out f1.bin \
 -k 00112233445566778899aabbccddeeff \
 -iv 0102030405060708090a0b0c0d0e0f
