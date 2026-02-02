@@ -1,5 +1,5 @@
 from PIL import Image
-img = Image.open("C:/Users/vishn/Desktop/College/SEMISTER/CSE 6th SEM/Cryptography&Cyber security/program/stego.png")
+img = Image.open("stego.png")
 pixels = img.load()
 
 bits = ""

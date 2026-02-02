@@ -1,6 +1,6 @@
 from PIL import Image 
  
-img = Image.open("C:/Users/vishn/Desktop/1.png").convert("RGB") 
+img = Image.open("cat.jpg").convert("RGB") 
 pixels = img.load() 
  
 message = input("Enter the message to be hidden: ") 
