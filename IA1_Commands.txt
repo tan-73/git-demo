@@ -1,0 +1,52 @@
+NO IV FOR ECB MODE
+
+1. Demonstrate the usage of steganography tools for hiding text inside an image. Also demonstrate how to recover a corrupted image using hexed editor.
+- copy /B img.jpg + exp.zip imgnew.jpg
+
+4. Demonstrate the working of ECB and CBC modes of AES on plaintext using OpenSSL.
+- Create .txt file and add content
+- openssl enc -aes-128-ecb -e -in plain.txt -out cipher1.bin -k 
+- cat t1.bin
+- openssl enc -aes-128-ecb -d -in cipher1.bin -out output.txt -k 
+- cat output.txt
+
+
+5. Demonstrate the workings of the ECB and CBC modes of AES on a bitmap image using OpenSSL.
+(SHOW BOTH ECB AND CBC, IV FOR CBC)
+- openssl enc -aes-128-ebc -e -in pic_original.bmp -out pic_ecb.bmp -k 00112233445566778899aabbccddeeff
+- 
+
+
+
+
+6. Demonstrate the effects of padding in AES using OpenSSL.
+- openssl enc -aes-128-cbc -e -in f1.txt -out f1.bin -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+- openssl enc -aes-128-cbc -d -nopad -in f1.bin -out p1.txt -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+- 
+
+8. 
+- openssl genrsa -out key.pri 2048
+- openssl rsa -in key.pri -out key.pub -pubout
+- openssl rsa -in key.pri -noout -text
+- cat key.pub
+- echo "hello" > message.txt
+- openssl rsautl -encrypt -inkey key.pub -pubin -in message.txt -out message.enc
+- openssl rsautl -decrypt -inkey key.pri -in message.enc -out message.dec
+- openssl rand -hex 32 > secret.key
+- openssl rsautl -encrypt -inkey key.pub -pubin -in secret.key -out secret.key.enc
+- openssl rsautl -decrypt -inkey key.pri -in secret.key.enc -out secret.key.dec
+
+
+10. Demonstrate the usage of tcpdump to capture packets based on different filters and protocols. Also demonstrate storing and retrieving data from files. 
+- tcpdump -i any
+- tcpdump -i enp0s3 -w file1.pcap
+- tcpdump -r file1.pcap
+- tcpdump -i any -w capture.pcap
+- tcpdump -i any tcp
+- tcpdump -i any icmp
+- tcpdump -i enp0s3 icmp and host 192.168.1.100 -w file1.pcap
+- tcpdump -i any port 80
+- tcpdump -i any port 443
+- tcpdump -n -i enp0s3 'tcp[tcpflags] & tcp-syn != 0'
+- tcpdump -n -i enp0s3 'tcp[tcpflags] & (tcp-syn | tcp-ack) != 0' 
+- tcpdump -nn -i enp0s3 -p -e 'host bnmit.org and port 80 and tcp[tcpflags] & (tcp-syn | tcp-ack) != 0'
