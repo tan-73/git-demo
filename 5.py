@@ -25,3 +25,11 @@ plt.xlabel("PC1")
 plt.ylabel("PC2")
 plt.title("PCA Scatter Plot of Students")
 plt.show()
+
+df['PC1'] = pca_data[:, 0]
+df['PC2'] = pca_data[:, 1]
+
+low_performers = df.sort_values(by = 'PC1', ascending=True)
+
+low_performers
+
